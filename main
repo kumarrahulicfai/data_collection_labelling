@@ -1,0 +1,32 @@
+# This function will help you to to store the files in labelled folder on the go. This can save lots of time in labelling.
+# But, first create the folders you need as labelled.
+
+# This is python function to pool all the images in a folder, then you could tell the computer what you see after
+# closing the image window
+import cv2
+import os
+from PIL import Image
+import matplotlib.pyplot as plt
+import numpy as np
+
+# To import all the images from a folder
+
+#setting location for cropped image and input image
+
+cropped_dir_path="./Cropped"
+extraction_path = "C:\\Users\\Manomay\\PycharmProjects\\untitled\\Final_labelled_folder"
+
+# For each images in the folder do the following:
+for filename in os.listdir(cropped_dir_path):
+    img = cv2.imread(os.path.join(cropped_dir_path,filename))
+    cv2.imshow('image',img)
+    cv2.waitKey(10)   # putting a number here means wait in ms. It will ease the input
+    ip=input("Enter What You Saw in the Picture (Please press na/NA if you are not sure): ")
+    if ip == "NA" or ip == "na":
+        print("photo rejected")
+    else:
+        print(ip)
+    path=extraction_path + "\\" + str(ip) + "\\"
+    print(path)
+    cv2.imwrite(path + str(filename) + '.jpg',img)
+    os.remove(cropped_dir_path + "\\" + str(filename))
